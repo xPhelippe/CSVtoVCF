@@ -1,6 +1,6 @@
 import datetime as dt
-from toVCF import VCFConverter, StringBuilder
 import pandas as pd
+from io import StringIO
 
 '''
     input: any number of strings specifying the organization along with unit names
@@ -11,6 +11,19 @@ import pandas as pd
 
     ORG: <unit #1>; <unit#2>; etc
 '''
+
+class StringBuilder:
+     _file_str = None
+
+     def __init__(self):
+         self._file_str = StringIO()
+
+     def append(self, str):
+         self._file_str.write(str)
+
+     def __str__(self):
+         return self._file_str.getvalue()
+
 def write_ORG(*units):
 
     if len(units) == 0:
