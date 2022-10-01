@@ -243,9 +243,6 @@ f.close()
 ## MAIN
 
 df = pd.read_csv("./Contacts.csv")
-# print(df.columns)
-# print(df.iloc[0]["First Name"])
-# print(len(df))
 
 df = df.fillna('')
 
@@ -258,14 +255,11 @@ for i in range(0,len(df)):
     sb = StringBuilder()
 
     cur = df.iloc[i]
-    
-    print(df.iloc[i]["First Name"], type(df.iloc[i]["First Name"]))
 
     sb.append("BEGIN:VCARD\r\n")
     sb.append("VERSION:3.0\r\n")
 
     fullName = cur["First Name"] + " " + cur["Last Name"]
-    print(fullName)
     sb.append(write_FN(fullName))
 
     sb.append(write_N(familyName=cur["Last Name"],givenName=cur["First Name"],addName=cur["Middle Name"]))
@@ -302,7 +296,6 @@ for i in range(0,len(df)):
 
 
     #notes
-    print("notes:")
     sb.append("NOTE:")
 
     rawnotes = cur["Notes"].split("\r\n")
@@ -313,44 +306,30 @@ for i in range(0,len(df)):
 
     notes = notes.__str__()
     if notes != "0" and notes != "" and len(notes) > 0:
-        print("writing Note")
-        print(notes)
         sb.append(notes + "\\n")
 
     account = cur["Account"]
     if account != "":
-        print("writing Account")
-        print(type(account))
         sb.append("Acccount:" + account + "\\n")
 
     anniverary = cur["Anniversary"]
     if anniverary != "0/0/00" and anniverary != "":
-        print("ajniversiary Note")
-        print(type(anniverary))
         sb.append("Anniversary:" + anniverary + "\\n")
 
     birthday = cur["Birthday"]
     if birthday != "" and birthday != "0/0/00":
-        print("bday Note")
-        print(type(birthday))
         sb.append("Birthday:" + birthday + "\\n")
 
     initials = cur["Initials"]
     if initials != "":
-        print("Initals Note")
-        print(type(initials))
         sb.append("Initials:" + initials + "\\n")
 
     manager = cur["Manager's Name"]
     if  not manager.lower().startswith("/o") and manager != "":
-        print("manager Note")
-        print(type(manager))
         sb.append("Manager:" + manager + "\\n")
 
     officeLoc = cur["Office Location"]
     if officeLoc != "":
-        print("office loc Note")
-        print(type(officeLoc))
         sb.append("Office Location:" + officeLoc + "\\n")
     
     user = cur["User 1"]
